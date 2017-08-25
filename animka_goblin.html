@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>JavaScript Sprite Animation Tutorial</title>
+</head>
+<body>
+
+<canvas id='canvas' style='background-image: url(tlo-podloga.jpg)'></canvas>
+<br/>
+<button onclick='moveLeft()'>Left</button>
+<button onclick='moveRight()'>Right</button>
+<button onclick='moveUp()'>Up</button>
+<button onclick='moveDown()'>Daun</button>
+<script>
+    var canvasWidth = 800;
+    var canvasHeight = 849;
+
+    var spriteWidth = 1200  ;
+    var spriteHeight = 1040;
+
+    var rows =8;
+    var cols = 10;
+
+    var trackRight = 7;
+    var trackLeft =5;
+    var trackUp = 6;
+    var trackDown = 4;
+
+    var width = spriteWidth / cols;
+    var height = spriteHeight / rows;
+
+    var curFrame = 0;
+    var frameCount = 10;
+
+    var x = 350;
+    var y = 750;
+
+    var srcX;
+    var srcY;
+
+    var left = false;
+    var right = false;
+    var up = true;
+    var down = false;
+
+    var speed = 3;
+
+    var canvas = document.getElementById('canvas');
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+
+    var ctx = canvas.getContext("2d");
+
+    var character = new Image();
+    character.src = "chlopek2.png";
+
+    function updateFrame() {
+        curFrame = ++curFrame % frameCount;
+        srcX = curFrame * width;
+        ctx.clearRect(x, y, width, height);
+
+
+        if (left && x > 0) {
+            srcY = trackLeft * height;
+            x -= speed;
+        }
+
+
+        if (right && x < canvasWidth - width) {
+            srcY = trackRight * height;
+            x += speed;
+        }
+
+
+        if (up && y > 0) {
+            srcY = trackUp * height;
+            y -= speed;
+        }
+
+
+        if (down && y < canvasHeight - height) {
+            srcY = trackDown * height;
+            y += speed;
+        }
+
+
+    }
+
+    function draw() {
+        updateFrame();
+        ctx.drawImage(character, srcX, srcY, width, height, x, y, width, height);
+    }
+
+
+    function moveLeft() {
+        left = true;
+        right = false;
+        up = false;
+        down = false;
+
+    }
+
+
+    function moveUp() {
+        left = false;
+        right = false;
+        up = true;
+        down = false;
+
+    }
+
+
+    function moveRight() {
+        left = false;
+        right = true;
+        up = false;
+        down = false;
+    }
+
+    function moveDown() {
+        left = false;
+        right = false;
+        up = false;
+        down = true;
+    }
+
+
+
+
+
+    // setInterval(draw, 100);
+    draw();
+
+
+    window.addEventListener("keydown", moveSomething, false);
+
+
+    function moveSomething(e) {
+
+        switch (e.keyCode) {
+
+
+            case 37:
+                console.log("37 - lewo");
+                left = true;
+                right = false;
+                up = false;
+                down = false;
+                draw();
+                break;
+
+
+            case 38:
+                console.log("38 - gora");
+                left = false;
+                right = false;
+                up = true;
+                down = false;
+                draw();
+                break;
+
+
+            case 39:
+                console.log("39 - prawo");
+                left = false;
+                right = true;
+                up = false;
+                down = false;
+                draw();
+                break;
+
+
+            case 40:
+                left = false;
+                right = false;
+                up = false;
+                down = true;
+                draw();
+                break;
+        }
+    }
+
+
+</script>
+</body>
+</html>
