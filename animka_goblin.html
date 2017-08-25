@@ -13,6 +13,11 @@
 <button onclick='moveUp()'>Up</button>
 <button onclick='moveDown()'>Daun</button>
 <script>
+
+    var audio = new Audio('beep1.mp3');
+
+
+
     var canvasWidth = 800;
     var canvasHeight = 849;
 
@@ -89,7 +94,7 @@
 
     function draw() {
         updateFrame();
-        ctx.drawImage(character, srcX, srcY, width, height, x, y, width, height);
+        ctx.drawImage(character, srcX, srcY, width, height, x, y, width/2.3, height/2.3);
     }
 
 
@@ -103,6 +108,7 @@
 
 
     function moveUp() {
+        audio.play();
         left = false;
         right = false;
         up = true;
@@ -157,6 +163,7 @@
                 right = false;
                 up = true;
                 down = false;
+                audio.play();
                 draw();
                 break;
 
