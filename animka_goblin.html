@@ -14,7 +14,7 @@
 <button onclick='moveDown()'>Daun</button>
 <script>
 
-    var audio = new Audio('beep1.mp3');
+    var audio = new Audio('step-12.wav');
 
 
 
@@ -60,6 +60,11 @@
     var character = new Image();
     character.src = "chlopek2.png";
 
+
+    var coin = new Image();
+    coin.src = "iks.gif";
+
+
     function updateFrame() {
         curFrame = ++curFrame % frameCount;
         srcX = curFrame * width;
@@ -94,7 +99,13 @@
 
     function draw() {
         updateFrame();
-        ctx.drawImage(character, srcX, srcY, width, height, x, y, width/2.3, height/2.3);
+      //  ctx.drawImage(character, srcX, srcY, width, height, x, y, width/2.5, height/2.5);
+
+
+        ctx.drawImage(coin, srcX, srcY, 20, 20, 100, 230, width/2.5, height/2.5);
+
+
+
     }
 
 
@@ -136,7 +147,10 @@
 
 
     // setInterval(draw, 100);
+
     draw();
+
+
 
 
     window.addEventListener("keydown", moveSomething, false);
@@ -153,6 +167,7 @@
                 right = false;
                 up = false;
                 down = false;
+                audio.play();
                 draw();
                 break;
 
@@ -174,15 +189,18 @@
                 right = true;
                 up = false;
                 down = false;
+                audio.play();
                 draw();
                 break;
 
 
             case 40:
+                console.log("40 - dół");
                 left = false;
                 right = false;
                 up = false;
                 down = true;
+                audio.play();
                 draw();
                 break;
         }
